@@ -1,7 +1,8 @@
-const torneiosModel = require('../models/torneiosModel');
+
 const vendaModel = require('../models/vendaModel');
 const { sendEmail } = require('../utils/sendEmail');
 const bcrypt = require('bcrypt');
+const moment = require('moment');
 const saltRounds = 10;
 
 
@@ -21,44 +22,55 @@ const VendaProdutoPrincipal = async (req, res, database) => {
         // Gera uma senha aleatória
         const senhaPlana = generateRandomPassword();
         const senha = await bcrypt.hash(senhaPlana, saltRounds);
-        console.log(checkout_phone);
+        const dataVenda = moment().format('YYYY-MM-DD HH:mm:ss');
 
-        // Passa a senha gerada junto com os outros dados para o modelo
-        const vendaResult = await vendaModel.saveUsuario({ email, name, checkout_phone, senha }, database);
 
-        if (vendaResult.success) {
-            const emailContent = {
-                to: email,
-                subject: 'Bem-vindo ao Sistema',
-                textContent: 'Seu cadastro foi realizado com sucesso.',
-                htmlContent: '<p>Seu cadastro foi realizado com sucesso. Aqui estão suas credenciais:</p>' +
-                    `<p>Email: ${email}</p>` +
-                    `<p>Senha: ${senhaPlana}</p>`,
-            };
+        // Tenta salvar o usuário
+        const usuarioResult = await vendaModel.saveUsuario({ email, name, checkout_phone, senha, dataVenda }, database);
 
-            const emailResponse = await sendEmail(emailContent);
-            if (emailResponse.success) {
-                return res.status(201).json({
-                    message: 'Cadastro realizado com sucesso e email enviado.',
-                    success: true,
-                });
+        if (usuarioResult.success) {
+            // Tenta salvar a venda do produto principal após salvar o usuário
+            const produtoPrincipalResult = await vendaModel.saveProdutoPrincipal({ email, name, dataVenda }, database);
+
+            if (produtoPrincipalResult.success) {
+                // Se ambos, usuário e produto principal, foram salvos com sucesso
+                const emailContent = {
+                    to: email,
+                    subject: 'Bem-vindo ao Sistema',
+                    textContent: 'Seu cadastro foi realizado com sucesso.',
+                    htmlContent: '<p>Seu cadastro foi realizado com sucesso. Aqui estão suas credenciais:</p>' +
+                        `<p>Email: ${email}</p>` +
+                        `<p>Senha: ${senhaPlana}</p>`,
+                };
+
+                const emailResponse = await sendEmail(emailContent);
+                if (emailResponse.success) {
+                    return res.status(201).json({
+                        message: 'Cadastro realizado com sucesso e email enviado.',
+                        success: true,
+                    });
+                } else {
+                    // Email não foi enviado, mas o cadastro foi realizado
+                    return res.status(201).json({
+                        message: 'Cadastro realizado com sucesso, mas houve um erro ao enviar o email.',
+                        success: true,
+                        error: emailResponse.error,
+                    });
+                }
             } else {
-                // Email não foi enviado, mas o cadastro foi realizado
-                return res.status(201).json({
-                    message: 'Cadastro realizado com sucesso, mas houve um erro ao enviar o email.',
-                    success: true,
-                    error: emailResponse.error,
-                });
+                // Falha ao salvar a venda do produto principal
+                throw new Error('Erro ao registrar a venda do produto principal.');
             }
         } else {
-            // Tratamento de erro caso a inserção falhe
-            return res.status(500).json({ message: 'Erro ao salvar dados do comprador.' });
+            // Falha ao salvar o usuário
+            throw new Error('Erro ao salvar dados do comprador.');
         }
     } catch (err) {
         console.error(err);
-        return res.status(500).json({ message: 'Erro ao processar a venda.' });
+        return res.status(500).json({ message: 'Erro ao processar a venda: ' + err.message });
     }
 };
+
 
 
 
@@ -73,8 +85,11 @@ const VendaRetratoColorido = async (req, res, database) => {
         }
 
         console.log(database);
+        const dataVenda = moment().format('YYYY-MM-DD HH:mm:ss');
 
-        const vendaResult = await vendaModel.saveVendaRetratoColorido({ email, name }, database);
+        
+
+        const vendaResult = await vendaModel.saveVendaRetratoColorido({ email, name, dataVenda }, database);
 
         if (vendaResult.success) {
             console.log(vendaResult);
@@ -102,7 +117,9 @@ const VendaEnvioImediato = async (req, res, database) => {
 
         console.log(database);
 
-        const vendaResult = await vendaModel.saveVendaEnvioImediato({ email, name }, database);
+        const dataVenda = moment().format('YYYY-MM-DD HH:mm:ss');
+
+        const vendaResult = await vendaModel.saveVendaEnvioImediato({ email, name, dataVenda }, database);
 
         if (vendaResult.success) {
             console.log(vendaResult);
@@ -131,7 +148,9 @@ const VendaInformacoesAlma = async (req, res, database) => {
 
         console.log(database);
 
-        const vendaResult = await vendaModel.saveVendaInformacoesAlma({ email, name }, database);
+        const dataVenda = moment().format('YYYY-MM-DD HH:mm:ss');
+
+        const vendaResult = await vendaModel.saveVendaInformacoesAlma({ email, name, dataVenda }, database);
 
         if (vendaResult.success) {
             console.log(vendaResult);
@@ -155,6 +174,8 @@ function generateRandomPassword(length = 12) {
     }
     return password;
 }
+
+
 
 module.exports = {
     VendaProdutoPrincipal,
