@@ -2,15 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { getInfoBuyByEmail } from '../../services/api';
 import jwtDecode from "jwt-decode";
 import { toast } from 'react-toastify';
-import { differenceInSeconds, addHours } from 'date-fns'; // Importando funções do date-fns
-import { Link } from 'react-router-dom'; // Adicione isto se você estiver usando react-router
+import { Link } from 'react-router-dom';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+
+const urlHoriochoi = 'fotos/horiochi.png';
 
 const InformacoesView = () => {
     const [loading, setLoading] = useState(true);
-    const [isAvailable, setIsAvailable] = useState(false);
-    const [countdown, setCountdown] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
     const [informacoesData, setInformacoesData] = useState(null);
+
+    const renderInformacoes = (informacoes) => {
+        // Transforma a string JSON em objeto, se necessário
+        const informacoesObj = typeof informacoes === 'string' ? JSON.parse(informacoes) : informacoes;
+
+        // Gera elementos de UI para cada par chave-valor
+        return Object.entries(informacoesObj).map(([chave, valor]) => (
+            <Grid item xs={12} key={chave}>
+                <Paper elevation={3} style={{ margin: '10px', padding: '10px' }}>
+                    <Typography variant="h6" style={{ textTransform: 'capitalize' }}>{chave.replace(/([A-Z])/g, ' $1')}</Typography>
+                    <Typography variant="body1">{valor}</Typography>
+                </Paper>
+            </Grid>
+        ));
+    };
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -29,49 +47,52 @@ const InformacoesView = () => {
             try {
                 const response = await getInfoBuyByEmail(userEmail);
                 if (response.data.success && response.data.userDetails) {
-                    const { informacoes_alma, envio_imediato, vendaInformacoesAlma, signo, informacoes } = response.data.userDetails;
-
-                    setInformacoesData(informacoes);
+                    const { informacoes_alma, signo, informacoes } = response.data.userDetails;
 
                     if (signo === null || signo === '') {
-                        setErrorMessage(<div>Você precisa preencher o <Link to="/form-almagemela">formulário</Link>.</div>);
+                        setErrorMessage("Você precisa preencher o formulário.");
                         return;
                     }
 
                     if (informacoes_alma !== 1) {
-                        setErrorMessage(<div>Você precisa comprar esse produto.</div>);
+                        setErrorMessage(
+                            <Grid 
+                              container 
+                              spacing={2} 
+                              direction="column" 
+                              alignItems="center" 
+                              justifyContent="center" // Centraliza verticalmente
+                              style={{ minHeight: '80vh' }} // Altura mínima para ocupar a tela inteira
+                            >
+                              <img src={urlHoriochoi} height={150}></img>
+                              <Grid item>
+                              
+                                <Typography variant="body1" style={{ textAlign: 'center' }}>
+                                  Você precisa comprar esse produto.
+                                </Typography>
+                              </Grid>
+                              <Grid item>
+                                <Button 
+                                  variant="contained" 
+                                  color="primary" 
+                                  onClick={() => window.location.href = 'https://www.exemplo.com/pagina-de-compra'}
+                                >
+                                  Comprar Retrato Colorido
+                                </Button>
+                              </Grid>
+                            </Grid>
+                          );
                         return;
                     }
 
-                    if (vendaInformacoesAlma && vendaInformacoesAlma.length > 0) {
-                        const dataVenda = new Date(vendaInformacoesAlma[0].dataVenda);
-                        const now = new Date();
-                        const deadline = addHours(dataVenda, 24);
-                        const diffSeconds = differenceInSeconds(deadline, now);
-
-                        if (envio_imediato === 1 || diffSeconds <= 0) {
-                            setIsAvailable(true);
-                        } else {
-                            setIsAvailable(false);
-                            const interval = setInterval(() => {
-                                const newDiffSeconds = differenceInSeconds(deadline, new Date());
-                                updateCountdown(newDiffSeconds);
-
-                                if (newDiffSeconds <= 0) {
-                                    clearInterval(interval);
-                                    setIsAvailable(true);
-                                }
-                            }, 1000);
-                        }
-                    } else {
-                        setErrorMessage(<div>Retrato preto não encontrado ou não comprado.</div>);
-                    }
+                    // Se o produto foi comprado
+                    setInformacoesData(informacoes);
                 } else {
                     throw new Error('Falha ao obter informações do usuário');
                 }
             } catch (error) {
                 console.error('Erro ao buscar informações do usuário:', error);
-                setErrorMessage(<div>Erro ao buscar informações do usuário.</div>);
+                setErrorMessage("Erro ao buscar informações do usuário.");
             } finally {
                 setLoading(false);
             }
@@ -80,32 +101,35 @@ const InformacoesView = () => {
         fetchUserData();
     }, []);
 
-    const updateCountdown = (seconds) => {
-        if (seconds <= 0) {
-            setIsAvailable(true);
-            setCountdown('');
-        } else {
-            const hours = Math.floor(seconds / 3600);
-            const minutes = Math.floor((seconds % 3600) / 60);
-            const secs = seconds % 60;
-            setCountdown(`${hours}h ${minutes}m ${secs}s`);
-        }
-    };
-
     if (loading) {
-        return <div>Carregando...</div>;
+        return <Typography>Carregando...</Typography>;
     }
 
     if (errorMessage) {
-        return errorMessage; // Agora errorMessage pode ser um elemento JSX
-    }
-
-    if (!isAvailable) {
-        return <div>Aguarde {countdown} para ver seu retrato.</div>;
+        return <div>{errorMessage}</div>;
     }
 
     return (
-        <div>{informacoesData}</div>
+        <Grid container spacing={2} alignItems="center" justifyContent="center">
+            <Grid item xs={12}>
+                <Typography variant="h5" gutterBottom>
+                    ¡El camino hacia tu alma gemela comienza aquí!
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    ¡Hola!
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    Estamos encantados de compartir contigo algunas informaciones vitales que pueden ser clave para encontrar a tu alma gemela. Hemos dedicado tiempo y cuidado para reunir estos datos que podrían acercarte a la conexión significativa que has estado buscando.
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    La travesía para encontrar a tu alma gemela puede ser larga y llena de desafíos, pero cada paso que das te acerca a esa conexión maravillosa. Recuerda, cada alma gemela es única y lleva consigo un propósito y una energía especial.
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                    Esperamos sinceramente que esta información te ayude en tu viaje hacia el verdadero amor. Ya sea una chispa instantánea o una llama lenta y constante, te deseamos todo el éxito del mundo en tu búsqueda de tu alma gemela.
+                </Typography>
+            </Grid>
+            {informacoesData && renderInformacoes(informacoesData)}
+        </Grid>
     );
 };
 

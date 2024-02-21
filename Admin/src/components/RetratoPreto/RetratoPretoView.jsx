@@ -8,6 +8,9 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
+import Typography from '@mui/material/Typography';
+import { Button } from '@mui/material';
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -17,6 +20,37 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+const cartaStyle = {
+  padding: '20px',
+  backgroundColor: '#f4f1e9', // Cor de fundo para parecer papel antigo
+  color: '#5a4a42', // Cor da fonte para imitar tinta
+  fontFamily: '"Times New Roman", Times, serif', // Fonte para parecer escrita à mão ou máquina de escrever
+  fontStyle: 'italic', // Itálico para dar um toque elegante
+  fontSize: '16px', // Tamanho da fonte
+  lineHeight: '1.6', // Espaçamento entre linhas
+  boxShadow: '5px 5px 10px rgba(0,0,0,0.1)', // Sombra suave para dar um efeito elevado
+  //margin: '20px', // Margem para separar do resto do conteúdo
+};
+
+const countdownStyle = {
+  fontSize: '24px',
+  fontWeight: 'bold',
+  textAlign: 'center',
+  marginBottom: '20px',
+};
+
+const buttonStyle = {
+  display: 'block',
+  width: 'max-content',
+  margin: '0 auto', // Centraliza o botão
+  padding: '10px 20px',
+  backgroundColor: '#1976d2',
+  color: '#fff',
+  textDecoration: 'none',
+  borderRadius: '4px',
+  textAlign: 'center',
+};
+
 
 const RetratoPretoView = () => {
   const [loading, setLoading] = useState(true);
@@ -24,6 +58,9 @@ const RetratoPretoView = () => {
   const [countdown, setCountdown] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
   const [urlImg, setUrlImg] = useState(null);
+
+  const urlBanner = 'fotos/btnColorido.jpg';
+  const urlHoriochoi = 'fotos/horiochi.png';
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -76,7 +113,34 @@ const RetratoPretoView = () => {
               }, 1000);
             }
           } else {
-            setErrorMessage(<div>Retrato preto não encontrado ou não comprado.</div>);
+            setErrorMessage(
+              <Grid
+                container
+                spacing={2}
+                direction="column"
+                alignItems="center"
+                justifyContent="center" // Centraliza verticalmente
+                style={{ minHeight: '100vh' }} // Altura mínima para ocupar a tela inteira
+              >
+                <img src={urlHoriochoi} height={150}></img>
+                <Grid item>
+
+                  <Typography variant="body1" style={{ textAlign: 'center' }}>
+                    Você precisa comprar esse produto.
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => window.location.href = 'https://www.exemplo.com/pagina-de-compra'}
+                  >
+                    Comprar Retrato Preto
+                  </Button>
+                </Grid>
+              </Grid>
+            );
+
           }
         } else {
           throw new Error('Falha ao obter informações do usuário');
@@ -113,30 +177,74 @@ const RetratoPretoView = () => {
   }
 
   if (!isAvailable) {
-    return <div>Aguarde {countdown} para ver seu retrato.</div>;
+    
+
+    return (
+      <Grid
+      container
+      spacing={2}
+      direction="column"
+      alignItems="center"
+      justifyContent="center" // Centraliza verticalmente
+      style={{ minHeight: '80vh' }} // Altura mínima para ocupar a tela inteira
+    >
+      <img src={urlHoriochoi} height={150}></img>
+      <Grid item>
+
+        <Typography variant="body1" style={{ textAlign: 'center' }}>
+        <Typography style={countdownStyle}>Aguarde {countdown} para ver seu retrato.</Typography>
+        </Typography>
+      </Grid>
+      <Grid item>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => window.location.href = 'https://www.exemplo.com/pagina-de-compra'}
+        >
+          Comprar envio imediato
+        </Button>
+      </Grid>
+    </Grid>
+    );
+
   }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        <Grid xs={6}>
-        <img src={urlImg} alt="Descrição da Imagem" style={{ filter: 'grayscale(100%)', width:'100%'}} />
+        {/* Banner */}
+
+        {/* Imagem à esquerda */}
+        <Grid item xs={12} lg={6}>
+          <img src={urlImg} alt="Descrição da Imagem" style={{ width: '100%', height: 'auto', filter: 'grayscale(100%)' }} />
         </Grid>
-        <Grid xs={6}>
-          <Item>xs=4</Item>
-        </Grid>
-        <Grid xs={4}>
-          <Item>xs=4</Item>
-        </Grid>
-        <Grid xs={8}>
-          <Item>xs=8</Item>
+        {/* Texto em forma de carta à direita */}
+        <Grid item xs={12} lg={6}>
+          <Grid item xs={12}>
+            <img src={urlBanner} alt="Descrição do Banner" style={{ width: '100%', height: 'auto' }} />
+          </Grid>
+          <Paper style={cartaStyle}>
+            <Typography variant="body1" component="p">
+              <b>Estimado ser de luz,</b>
+              <br /><br />
+              En este sagrado intercambio, donde el arte se encuentra con el alma, tu confianza en mi visión es el mayor honor. Al adquirir la imagen de tu alma gemela, has dado un paso valiente hacia el encuentro con tu esencia divina y tu conexión cósmica.
+              <br /><br />
+              Que este retrato sea un reflejo de la belleza infinita que reside en ti, y que su presencia en tu vida sirva como un constante recordatorio de la unidad y el amor que el universo tiene reservado para ti. Esta no es simplemente una transacción; es una afirmación de fe, un acto de reconocimiento de que las fuerzas mayores nos guían hacia nuestros destinos entrelazados.
+              <br /><br />
+              Con profunda gratitud y respeto, celebro tu camino hacia la iluminación y el amor verdadero. Que la imagen de tu alma gemela ilumine tu hogar con la misma luz con la que iluminaste mi camino al elegir mi obra.
+              <br /><br />
+              Con amor y luz,
+              <br />
+              <b>Maestro Horiochi</b>
+            </Typography>
+          </Paper>
         </Grid>
       </Grid>
     </Box>
 
-    
+
   );
-  
+
 };
 
 export default RetratoPretoView;

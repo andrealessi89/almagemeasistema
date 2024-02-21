@@ -1,33 +1,17 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import MonochromePhotosIcon from '@mui/icons-material/MonochromePhotos';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
+import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
 import { Link } from "react-router-dom";
-import "./style.css";
-import { useContext } from 'react';
 
-
-//FALTA INSERIR OS ICONES
-const Menu = () => {
-
+// Adicione a prop `open` aqui
+const Menu = ({ open }) => {
     const linksMenu = [
         {
             nome: "Home",
@@ -36,35 +20,49 @@ const Menu = () => {
         },
         {
             nome: "Retrato Preto",
-            icone: EmojiEventsIcon,
+            icone: MonochromePhotosIcon,
             route: "/retrato-preto"
         },
         {
             nome: "Retrato Colorido",
-            icone: EmojiEventsIcon,
+            icone: ColorLensIcon,
             route: "/retrato-colorido"
         },
         {
             nome: "informacoes",
-            icone: EmojiEventsIcon,
+            icone: PermDeviceInformationIcon,
             route: "/informacoes"
         },
-    ]
+    ];
 
     return (
         <List>
             {linksMenu.map((menu, index) => (
-                <ListItem key={menu.nome} disablePadding>
-                    <ListItemButton component={Link} to={menu.route}>
-                        <ListItemIcon>
+                <ListItem key={menu.nome} disablePadding sx={{ display: 'block' }}>
+                    <ListItemButton 
+                      component={Link} 
+                      to={menu.route} 
+                      sx={{
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                        px: 2.5,
+                      }}
+                    >
+                        <ListItemIcon
+                          sx={{
+                            minWidth: 0,
+                            mr: open ? 3 : 'auto',
+                            justifyContent: 'center',
+                          }}
+                        >
                             {React.createElement(menu.icone)}
                         </ListItemIcon>
-                        <span className='textoMenu'>{menu.nome}</span>
+                        <ListItemText primary={menu.nome} sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>
                 </ListItem>
             ))}
         </List>
-    )
+    );
 }
 
 export default Menu;
