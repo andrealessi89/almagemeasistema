@@ -4,7 +4,6 @@ import jwtDecode from "jwt-decode";
 import { toast } from 'react-toastify';
 import { differenceInSeconds, addHours } from 'date-fns'; // Importando funções do date-fns
 import { Link } from 'react-router-dom'; // Adicione isto se você estiver usando react-router
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -12,13 +11,8 @@ import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+
+
 
 const cartaStyle = {
   padding: '20px',
@@ -51,8 +45,9 @@ const buttonStyle = {
   textAlign: 'center',
 };
 
+const urlHoriochoi = 'fotos/horiochi.png';
 
-const RetratoPretoView = () => {
+const RetratoColoridoView = () => {
   const [loading, setLoading] = useState(true);
   const [isAvailable, setIsAvailable] = useState(false);
   const [countdown, setCountdown] = useState('');
@@ -60,7 +55,7 @@ const RetratoPretoView = () => {
   const [urlImg, setUrlImg] = useState(null);
 
   const urlBanner = 'fotos/btnColorido.jpg';
-  const urlHoriochoi = 'fotos/horiochi.png';
+  const urlBanner2 = 'fotos/btnInformacoes.jpg';
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -88,7 +83,45 @@ const RetratoPretoView = () => {
           }
 
           if (retrato_preto !== 1) {
-            setErrorMessage(<div>Você precisa comprar esse produto.</div>);
+            setErrorMessage(
+              <Grid
+                container
+                spacing={2}
+                direction="column"
+                alignItems="center"
+                justifyContent="center" // Centraliza verticalmente
+                style={{ minHeight: '80vh' }} // Altura mínima para ocupar a tela inteira
+              >
+                {/* Preço riscado e novo preço */}
+
+
+                <img src={urlHoriochoi} alt="Descrição do Horiochi" height={150} />
+                <Grid item>
+                  <Typography variant="body1" style={{ textAlign: 'center' }}>
+                    Você precisa comprar esse produto.
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography variant="h6" component="span" style={{ textDecoration: 'line-through', marginRight: '10px' }}>
+                    R$19,90
+                  </Typography>
+                  <Typography variant="h5" component="span" style={{ color: 'red' }}>
+                    R$9,90
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => window.location.href = 'https://www.exemplo.com/pagina-de-compra'}
+                  >
+                    Comprar Retrato Preto
+                  </Button>
+                </Grid>
+              </Grid>
+            );
+
+
             return;
           }
 
@@ -114,19 +147,30 @@ const RetratoPretoView = () => {
             }
           } else {
             setErrorMessage(
+
               <Grid
                 container
                 spacing={2}
                 direction="column"
                 alignItems="center"
                 justifyContent="center" // Centraliza verticalmente
-                style={{ minHeight: '100vh' }} // Altura mínima para ocupar a tela inteira
+                style={{ minHeight: '80vh' }} // Altura mínima para ocupar a tela inteira
               >
-                <img src={urlHoriochoi} height={150}></img>
-                <Grid item>
+                {/* Preço riscado e novo preço */}
 
+
+                <img src={urlHoriochoi} alt="Descrição do Horiochi" height={150} />
+                <Grid item>
                   <Typography variant="body1" style={{ textAlign: 'center' }}>
                     Você precisa comprar esse produto.
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography variant="h6" component="span" style={{ textDecoration: 'line-through', marginRight: '10px' }}>
+                    R$19,90
+                  </Typography>
+                  <Typography variant="h5" component="span" style={{ color: 'red' }}>
+                    R$9,90
                   </Typography>
                 </Grid>
                 <Grid item>
@@ -140,7 +184,6 @@ const RetratoPretoView = () => {
                 </Grid>
               </Grid>
             );
-
           }
         } else {
           throw new Error('Falha ao obter informações do usuário');
@@ -177,34 +220,32 @@ const RetratoPretoView = () => {
   }
 
   if (!isAvailable) {
-    
-
     return (
       <Grid
-      container
-      spacing={2}
-      direction="column"
-      alignItems="center"
-      justifyContent="center" // Centraliza verticalmente
-      style={{ minHeight: '80vh' }} // Altura mínima para ocupar a tela inteira
-    >
-      <img src={urlHoriochoi} height={150}></img>
-      <Grid item>
+        container
+        spacing={2}
+        direction="column"
+        alignItems="center"
+        justifyContent="center" // Centraliza verticalmente
+        style={{ minHeight: '80vh' }} // Altura mínima para ocupar a tela inteira
+      >
+        <img src={urlHoriochoi} height={150}></img>
+        <Grid item>
 
-        <Typography variant="body1" style={{ textAlign: 'center' }}>
-        <Typography style={countdownStyle}>Aguarde {countdown} para ver seu retrato.</Typography>
-        </Typography>
+          <Typography variant="body1" style={{ textAlign: 'center' }}>
+            <Typography style={countdownStyle}>Aguarde {countdown} para ver seu retrato.</Typography>
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => window.location.href = 'https://www.exemplo.com/pagina-de-compra'}
+          >
+            Comprar envio imediato
+          </Button>
+        </Grid>
       </Grid>
-      <Grid item>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => window.location.href = 'https://www.exemplo.com/pagina-de-compra'}
-        >
-          Comprar envio imediato
-        </Button>
-      </Grid>
-    </Grid>
     );
 
   }
@@ -212,16 +253,20 @@ const RetratoPretoView = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        {/* Banner */}
-
-        {/* Imagem à esquerda */}
         <Grid item xs={12} lg={6}>
-          <img src={urlImg} alt="Descrição da Imagem" style={{ width: '100%', height: 'auto', filter: 'grayscale(100%)' }} />
+          <img src={urlImg} alt="Descrição da Imagem" style={{ width: '100%', height: 'auto', filter: "grayscale(100%)" }} />
         </Grid>
         {/* Texto em forma de carta à direita */}
         <Grid item xs={12} lg={6}>
           <Grid item xs={12}>
-            <img src={urlBanner} alt="Descrição do Banner" style={{ width: '100%', height: 'auto' }} />
+            <Link to="/retrato-colorido">
+              <img src={urlBanner} alt="Descrição do Banner" style={{ width: '100%', height: 'auto' }} />
+            </Link>
+          </Grid>
+          <Grid item xs={12}>
+            <Link to="/informacoes">
+              <img src={urlBanner2} alt="Descrição do Banner" style={{ width: '100%', height: 'auto' }} />
+            </Link>
           </Grid>
           <Paper style={cartaStyle}>
             <Typography variant="body1" component="p">
@@ -241,10 +286,8 @@ const RetratoPretoView = () => {
         </Grid>
       </Grid>
     </Box>
-
-
   );
 
 };
 
-export default RetratoPretoView;
+export default RetratoColoridoView;

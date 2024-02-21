@@ -56,31 +56,41 @@ const InformacoesView = () => {
 
                     if (informacoes_alma !== 1) {
                         setErrorMessage(
-                            <Grid 
-                              container 
-                              spacing={2} 
-                              direction="column" 
-                              alignItems="center" 
-                              justifyContent="center" // Centraliza verticalmente
-                              style={{ minHeight: '80vh' }} // Altura mínima para ocupar a tela inteira
-                            >
-                              <img src={urlHoriochoi} height={150}></img>
-                              <Grid item>
-                              
-                                <Typography variant="body1" style={{ textAlign: 'center' }}>
-                                  Você precisa comprar esse produto.
-                                </Typography>
-                              </Grid>
-                              <Grid item>
-                                <Button 
-                                  variant="contained" 
-                                  color="primary" 
-                                  onClick={() => window.location.href = 'https://www.exemplo.com/pagina-de-compra'}
-                                >
-                                  Comprar Retrato Colorido
-                                </Button>
-                              </Grid>
-                            </Grid>
+                            <Grid
+                container
+                spacing={2}
+                direction="column"
+                alignItems="center"
+                justifyContent="center" // Centraliza verticalmente
+                style={{ minHeight: '80vh' }} // Altura mínima para ocupar a tela inteira
+              >
+                {/* Preço riscado e novo preço */}
+
+
+                <img src={urlHoriochoi} alt="Descrição do Horiochi" height={150} />
+                <Grid item>
+                  <Typography variant="body1" style={{ textAlign: 'center' }}>
+                    Você precisa comprar esse produto.
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography variant="h6" component="span" style={{ textDecoration: 'line-through', marginRight: '10px' }}>
+                    R$19,90
+                  </Typography>
+                  <Typography variant="h5" component="span" style={{ color: 'red' }}>
+                    R$9,90
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => window.location.href = 'https://www.exemplo.com/pagina-de-compra'}
+                  >
+                    Comprar Informacoes
+                  </Button>
+                </Grid>
+              </Grid>
                           );
                         return;
                     }

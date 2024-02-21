@@ -82,25 +82,35 @@ const RetratoColoridoView = () => {
 
           if (retrato_colorido !== 1) {
             setErrorMessage(
-              <Grid 
-                container 
-                spacing={2} 
-                direction="column" 
-                alignItems="center" 
+              <Grid
+                container
+                spacing={2}
+                direction="column"
+                alignItems="center"
                 justifyContent="center" // Centraliza verticalmente
-                style={{ minHeight: '100vh' }} // Altura mínima para ocupar a tela inteira
+                style={{ minHeight: '80vh' }} // Altura mínima para ocupar a tela inteira
               >
-                <img src={urlHoriochoi} height={150}></img>
+                {/* Preço riscado e novo preço */}
+
+
+                <img src={urlHoriochoi} alt="Descrição do Horiochi" height={150} />
                 <Grid item>
-                
                   <Typography variant="body1" style={{ textAlign: 'center' }}>
                     Você precisa comprar esse produto.
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Button 
-                    variant="contained" 
-                    color="primary" 
+                  <Typography variant="h6" component="span" style={{ textDecoration: 'line-through', marginRight: '10px' }}>
+                    R$19,90
+                  </Typography>
+                  <Typography variant="h5" component="span" style={{ color: 'red' }}>
+                    R$9,90
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="primary"
                     onClick={() => window.location.href = 'https://www.exemplo.com/pagina-de-compra'}
                   >
                     Comprar Retrato Colorido
@@ -108,8 +118,8 @@ const RetratoColoridoView = () => {
                 </Grid>
               </Grid>
             );
-            
-            
+
+
             return;
           }
 
@@ -134,7 +144,45 @@ const RetratoColoridoView = () => {
               }, 1000);
             }
           } else {
-            setErrorMessage(<div>Retrato preto não encontrado ou não comprado.</div>);
+            setErrorMessage(
+
+              <Grid
+                container
+                spacing={2}
+                direction="column"
+                alignItems="center"
+                justifyContent="center" // Centraliza verticalmente
+                style={{ minHeight: '80vh' }} // Altura mínima para ocupar a tela inteira
+              >
+                {/* Preço riscado e novo preço */}
+
+
+                <img src={urlHoriochoi} alt="Descrição do Horiochi" height={150} />
+                <Grid item>
+                  <Typography variant="body1" style={{ textAlign: 'center' }}>
+                    Você precisa comprar esse produto.
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography variant="h6" component="span" style={{ textDecoration: 'line-through', marginRight: '10px' }}>
+                    R$19,90
+                  </Typography>
+                  <Typography variant="h5" component="span" style={{ color: 'red' }}>
+                    R$9,90
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => window.location.href = 'https://www.exemplo.com/pagina-de-compra'}
+                  >
+                    Comprar Retrato Colorido
+                  </Button>
+                </Grid>
+              </Grid>
+              
+            );
           }
         } else {
           throw new Error('Falha ao obter informações do usuário');
@@ -173,31 +221,31 @@ const RetratoColoridoView = () => {
   if (!isAvailable) {
     return (
       <Grid
-      container
-      spacing={2}
-      direction="column"
-      alignItems="center"
-      justifyContent="center" // Centraliza verticalmente
-      style={{ minHeight: '80vh' }} // Altura mínima para ocupar a tela inteira
-    >
-      <img src={urlHoriochoi} height={150}></img>
-      <Grid item>
+        container
+        spacing={2}
+        direction="column"
+        alignItems="center"
+        justifyContent="center" // Centraliza verticalmente
+        style={{ minHeight: '80vh' }} // Altura mínima para ocupar a tela inteira
+      >
+        <img src={urlHoriochoi} height={150}></img>
+        <Grid item>
 
-        <Typography variant="body1" style={{ textAlign: 'center' }}>
-        <Typography style={countdownStyle}>Aguarde {countdown} para ver seu retrato.</Typography>
-        </Typography>
+          <Typography variant="body1" style={{ textAlign: 'center' }}>
+            <Typography style={countdownStyle}>Aguarde {countdown} para ver seu retrato.</Typography>
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => window.location.href = 'https://www.exemplo.com/pagina-de-compra'}
+          >
+            Comprar envio imediato
+          </Button>
+        </Grid>
       </Grid>
-      <Grid item>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => window.location.href = 'https://www.exemplo.com/pagina-de-compra'}
-        >
-          Comprar envio imediato
-        </Button>
-      </Grid>
-    </Grid>
-  );
+    );
 
   }
 
@@ -205,16 +253,18 @@ const RetratoColoridoView = () => {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         {/* Banner */}
-        
+
         {/* Imagem à esquerda */}
         <Grid item xs={12} lg={6}>
           <img src={urlImg} alt="Descrição da Imagem" style={{ width: '100%', height: 'auto' }} />
         </Grid>
         {/* Texto em forma de carta à direita */}
         <Grid item xs={12} lg={6}>
-        <Grid item xs={12}>
-          <img src={urlBanner} alt="Descrição do Banner" style={{ width: '100%', height: 'auto' }} />
-        </Grid>
+          <Grid item xs={12}>
+          <Link to="/informacoes">
+            <img src={urlBanner} alt="Descrição do Banner" style={{ width: '100%', height: 'auto' }} />
+            </Link>
+          </Grid>
           <Paper style={cartaStyle}>
             <Typography variant="body1" component="p">
               <b>Estimado ser de luz,</b>
@@ -234,7 +284,7 @@ const RetratoColoridoView = () => {
       </Grid>
     </Box>
   );
-  
+
 };
 
 export default RetratoColoridoView;
