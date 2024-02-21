@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useContext } from 'react';
-import { createSession} from "../../services/api"
+import { createSession, getUserFromEmail } from "../../services/api"
 import { toast } from 'react-toastify';
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router";
@@ -30,32 +30,52 @@ export default function LoginPage() {
   const login = (email, password) => {
     const params = {
       email: email,
-      senha: password
-    }
+      senha: password,
+    };
     createSession(params)
-      .then(response => {
-        const decodeToken = jwtDecode(response.data.token)
+      .then((response) => {
+        const decodeToken = jwtDecode(response.data.token);
         const token = response.data.token;
         const loggedUser = {
           id: decodeToken.id,
           email: decodeToken.email,
           nome_completo: decodeToken.nome_completo,
-          create_time: decodeToken.create_time
-        }
-        localStorage.setItem('user', JSON.stringify(loggedUser));
-        localStorage.setItem('token', token);
-        toast.success(response.data.message, { position: toast.POSITION.TOP_CENTER });
-        navigate('/partidas')
-      })
-      .catch(error => {
-        if (error.response.status === 401) {
-          //EMAIL OU SENHA INVALIDOS
-          toast.error(error.response.data.message, { position: toast.POSITION.TOP_CENTER });
-          console.error(error.response);
+          create_time: decodeToken.create_time,
+        };
+        localStorage.setItem("user", JSON.stringify(loggedUser));
+        localStorage.setItem("token", token);
+        toast.success(response.data.message, {
+          position: toast.POSITION.TOP_CENTER,
+        });
   
+        // Agora que o login foi bem-sucedido, verifique o signo do usuário
+        getUserFromEmail(email).then((userResponse) => {
+          const user = userResponse.data.user[0]; // Assumindo que sempre haverá pelo menos um usuário na resposta
+          if (user.signo) {
+            // Se o usuário tem um signo definido
+            navigate('/partida');
+          } else {
+            // Se o signo do usuário é null
+            navigate('/form-almagemela');
+          }
+        }).catch((error) => {
+          console.error("Erro ao buscar informações do usuário:", error);
+          // Tratamento de erro, caso não consiga buscar as informações do usuário
+        });
+  
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          //EMAIL OU SENHA INVÁLIDOS
+          toast.error(error.response.data.message, {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          console.error(error.response);
         } else {
-          console.error('Erro desconhecido:', error);
-          toast.error(error.response.data.message, { position: toast.POSITION.TOP_CENTER });
+          console.error("Erro desconhecido:", error);
+          toast.error("Erro ao fazer login", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         }
       });
   };

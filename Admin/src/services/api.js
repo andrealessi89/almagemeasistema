@@ -11,7 +11,27 @@ export const createSession = async (params) => {
     return api.post('/login', params, { headers })
 }
 
-//Busca todos os players cadastrados
+export const getUserFromEmail = async (email) => {
+    const token = localStorage.getItem('token');
+    const headers = { 'x-access-token': token,  'x-database-name': 'alma'};
+    return api.get('/getUserFromEmail?email='+email, { headers });
+}
+
+export const editUserFromEmail = async (params) => {
+    const token = localStorage.getItem('token');
+    const headers = { 'x-access-token': token,  'x-database-name': 'alma'};
+    return api.post('/editUserFromEmail', params, { headers });
+}
+
+export const getInfoBuyByEmail = async (email) => {
+    const token = localStorage.getItem('token');
+    const headers = { 'x-access-token': token,  'x-database-name': 'alma'};
+    return api.get('/getInfoBuyByEmail?email='+email, { headers });
+}
+
+
+///////////////////////////EXEMPLOS///////////////////////
+
 export const getAllPlayers = async () => {
 
     const token = localStorage.getItem('token');

@@ -13,6 +13,10 @@ import PartidasView from './components/Partidas/PartidasView'
 import PlayersProvider from './store/PlayersContext'
 import CadastroPlayersView from './components/CadastroPlayers/CadastroPlayersView'
 import RankingView from './components/Rankings/RankingView';
+import FormAlmaGemelaView from './components/FormAlmaGemela/FormAlmaGemelaView';
+import RetratoColoridoView from './components/RetratoColorido/RetratoColoridoView';
+import RetratoPretoView from './components/RetratoPreto/RetratoPretoView';
+import InformacoesView from './components/Informacoes/InformacoesView';
 
 const AppRoutes = () => {
     return (
@@ -21,12 +25,13 @@ const AppRoutes = () => {
                 <Routes>
                     <Route exact path="/login" element={<LoginPage />} />
                     <Route exact path="/esqueci-senha" element={<EsqueciSenha />} />
-                   
                         <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
-                            <Route path='/partidas' element={<PartidasView />} />
-                            <Route path="/cadastro-players" element={<CadastroPlayersView />} />
-                            <Route path="/rankings" element={<RankingView />} />
-                        </Route>
+                        <Route path='/home' element={<RetratoPretoView />} />
+                        <Route path='/retrato-colorido' element={<RetratoColoridoView />} />
+                        <Route path='/retrato-preto' element={<RetratoPretoView />} />
+                        <Route path='/informacoes' element={<InformacoesView />} />
+                        <Route path='/form-almagemela' element={<FormAlmaGemelaView />} />
+                    </Route>
 
                 </Routes>
             </AuthProvider>

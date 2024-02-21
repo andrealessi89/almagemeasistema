@@ -16,6 +16,11 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Outlet } from 'react-router';
 import Menu from './Menu';
 import { useNavigate } from 'react-router';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+import Grid from '@mui/material/Grid'; // Grid version 1
+
+
 
 
 
@@ -76,10 +81,12 @@ export default function Layout({ children }) {
     };
     const pathnames = location.pathname.split('/').filter((x) => x);
     const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [open, setOpen] = React.useState(true);
     const navigate = useNavigate();
-
     
+
+
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -93,6 +100,7 @@ export default function Layout({ children }) {
         localStorage.removeItem('user');
         navigate('/login');
     }
+    const drawerVariant = isMobile ? 'temporary' : 'persistent';
 
     return (
         <Box sx={{ display: 'flex', flexGrow: 1 }}>
@@ -108,12 +116,10 @@ export default function Layout({ children }) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h8" noWrap component="div" sx={{ flexGrow: 1 }}>
-                        Bem vindo a aplicacao
+                    <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+                        Bem-vindo à aplicação
                     </Typography>
-                    <Typography variant="h8" noWrap component="div" >
-                        <Button color="inherit" onClick={handleLogout}>LogOut</Button>
-                    </Typography>
+                    <Button color="inherit" onClick={handleLogout}>Logout</Button>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -125,9 +131,10 @@ export default function Layout({ children }) {
                         boxSizing: 'border-box',
                     },
                 }}
-                variant="persistent"
+                variant={drawerVariant}
                 anchor="left"
                 open={open}
+                onClose={handleDrawerClose} // Permite fechar clicando fora ou pressionando ESC em telas pequenas
             >
                 <DrawerHeader>
                     <IconButton onClick={handleDrawerClose}>
@@ -136,7 +143,6 @@ export default function Layout({ children }) {
                 </DrawerHeader>
                 <Divider />
                 <Menu />
-                <Divider />
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />

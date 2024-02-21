@@ -30,21 +30,25 @@ const Menu = () => {
 
     const linksMenu = [
         {
-            nome: "Partidas",
+            nome: "Home",
             icone: EmojiEventsIcon,
-            route: "/partidas"
+            route: "/home"
         },
         {
-            nome: "Players",
-            icone: SupervisedUserCircleIcon,
-            route: "/cadastro-players"
+            nome: "Retrato Preto",
+            icone: EmojiEventsIcon,
+            route: "/retrato-preto"
         },
         {
-            nome: "Rankings",
-            icone: SupervisedUserCircleIcon,
-            route: "/rankings"
+            nome: "Retrato Colorido",
+            icone: EmojiEventsIcon,
+            route: "/retrato-colorido"
         },
-
+        {
+            nome: "informacoes",
+            icone: EmojiEventsIcon,
+            route: "/informacoes"
+        },
     ]
 
     return (
