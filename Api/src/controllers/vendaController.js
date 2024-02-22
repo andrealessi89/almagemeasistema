@@ -36,11 +36,14 @@ const VendaProdutoPrincipal = async (req, res, database) => {
                 // Se ambos, usuário e produto principal, foram salvos com sucesso
                 const emailContent = {
                     to: email,
-                    subject: 'Bem-vindo ao Sistema',
+                    subject: 'El retrato de tu alma gemela está listo',
                     textContent: 'Seu cadastro foi realizado com sucesso.',
-                    htmlContent: '<p>Seu cadastro foi realizado com sucesso. Aqui estão suas credenciais:</p>' +
-                        `<p>Email: ${email}</p>` +
-                        `<p>Senha: ${senhaPlana}</p>`,
+                    htmlContent: '<p>Su acceso al sistema para ver el retrato de su alma gemela está justo abajo. Acceda al enlace con el usuario y contraseña:</p>' +
+                        `<p>Usuario: ${email}</p>` +
+                        `<p>contraseña: ${senhaPlana}</p>`+
+                        '<p><a href="https://painel.maestrohoriochi.com">Acceda al panel</a></p>'+
+                        '<p>o acceda al enlace https://painel.maestrohoriochi.com</p>'
+                    
                 };
 
                 const emailResponse = await sendEmail(emailContent);

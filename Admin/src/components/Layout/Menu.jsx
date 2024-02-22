@@ -9,6 +9,7 @@ import MonochromePhotosIcon from '@mui/icons-material/MonochromePhotos';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
 import { Link } from "react-router-dom";
+import FlareIcon from '@mui/icons-material/Flare';
 
 // Adicione a prop `open` aqui
 const Menu = ({ open }) => {
@@ -19,19 +20,24 @@ const Menu = ({ open }) => {
             route: "/home"
         },
         {
-            nome: "Retrato Preto",
+            nome: "Dibujo",
             icone: MonochromePhotosIcon,
             route: "/retrato-preto"
         },
         {
-            nome: "Retrato Colorido",
+            nome: "Dibujo Colorido",
             icone: ColorLensIcon,
             route: "/retrato-colorido"
         },
         {
-            nome: "informacoes",
+            nome: "Información",
             icone: PermDeviceInformationIcon,
             route: "/informacoes"
+        },
+        {
+            nome: "Hóscopo",
+            icone: FlareIcon,
+            route: "/horoscopo"
         },
     ];
 

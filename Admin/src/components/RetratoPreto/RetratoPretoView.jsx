@@ -78,7 +78,7 @@ const RetratoColoridoView = () => {
           setUrlImg('fotos/' + interesse + '/' + url_img);
 
           if (signo === null || signo === '') {
-            setErrorMessage(<div>Você precisa preencher o <Link to="/form-almagemela">formulário</Link>.</div>);
+            setErrorMessage(<div>Necesitas completar el formulario - <Link to="/form-almagemela">formulário</Link>.</div>);
             return;
           }
 
@@ -98,24 +98,24 @@ const RetratoColoridoView = () => {
                 <img src={urlHoriochoi} alt="Descrição do Horiochi" height={150} />
                 <Grid item>
                   <Typography variant="body1" style={{ textAlign: 'center' }}>
-                    Você precisa comprar esse produto.
+                    Necesitas comprar este producto.
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography variant="h6" component="span" style={{ textDecoration: 'line-through', marginRight: '10px' }}>
-                    R$19,90
+                    $19,90
                   </Typography>
                   <Typography variant="h5" component="span" style={{ color: 'red' }}>
-                    R$9,90
+                    $9,90
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => window.location.href = 'https://www.exemplo.com/pagina-de-compra'}
+                    onClick={() => window.location.href = 'https://pay.hotmart.com/F89020402Y?off=smjc0o5b'}
                   >
-                    Comprar Retrato Preto
+                    Comprar Dibujo Blanco y Negro
                   </Button>
                 </Grid>
               </Grid>
@@ -162,35 +162,35 @@ const RetratoColoridoView = () => {
                 <img src={urlHoriochoi} alt="Descrição do Horiochi" height={150} />
                 <Grid item>
                   <Typography variant="body1" style={{ textAlign: 'center' }}>
-                    Você precisa comprar esse produto.
+                  Necesitas comprar este producto.
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography variant="h6" component="span" style={{ textDecoration: 'line-through', marginRight: '10px' }}>
-                    R$19,90
+                    $19,90
                   </Typography>
                   <Typography variant="h5" component="span" style={{ color: 'red' }}>
-                    R$9,90
+                    $9,90
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => window.location.href = 'https://www.exemplo.com/pagina-de-compra'}
+                    onClick={() => window.location.href = 'https://pay.hotmart.com/F89020402Y?off=smjc0o5b'}
                   >
-                    Comprar Retrato Preto
+                    Comprar Dibujo Blanco y Negro
                   </Button>
                 </Grid>
               </Grid>
             );
           }
         } else {
-          throw new Error('Falha ao obter informações do usuário');
+          throw new Error('Error al buscar información del usuario.');
         }
       } catch (error) {
-        console.error('Erro ao buscar informações do usuário:', error);
-        setErrorMessage(<div>Erro ao buscar informações do usuário.</div>);
+        console.error('Error al buscar información del usuario:', error);
+        setErrorMessage(<div>Error al buscar información del usuario.</div>);
       } finally {
         setLoading(false);
       }
@@ -230,17 +230,26 @@ const RetratoColoridoView = () => {
         style={{ minHeight: '80vh' }} // Altura mínima para ocupar a tela inteira
       >
         <img src={urlHoriochoi} height={150}></img>
+        
         <Grid item>
 
           <Typography variant="body1" style={{ textAlign: 'center' }}>
-            <Typography style={countdownStyle}>Aguarde {countdown} para ver seu retrato.</Typography>
+            <Typography style={countdownStyle}>Espere  {countdown} para ver su retrato.</Typography>
           </Typography>
         </Grid>
+        <Grid item>
+                  <Typography variant="h6" component="span" style={{ textDecoration: 'line-through', marginRight: '10px' }}>
+                    $19,90
+                  </Typography>
+                  <Typography variant="h5" component="span" style={{ color: 'red' }}>
+                    $9,90
+                  </Typography>
+                </Grid>
         <Grid item>
           <Button
             variant="contained"
             color="primary"
-            onClick={() => window.location.href = 'https://www.exemplo.com/pagina-de-compra'}
+            onClick={() => window.location.href = 'https://pay.hotmart.com/B89020319T?off=3l578vdu'}
           >
             Comprar envio imediato
           </Button>

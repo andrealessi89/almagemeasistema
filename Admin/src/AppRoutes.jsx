@@ -17,6 +17,7 @@ import FormAlmaGemelaView from './components/FormAlmaGemela/FormAlmaGemelaView';
 import RetratoColoridoView from './components/RetratoColorido/RetratoColoridoView';
 import RetratoPretoView from './components/RetratoPreto/RetratoPretoView';
 import InformacoesView from './components/Informacoes/InformacoesView';
+import HoroscopoView from './components/Horoscopo/HoroscopoView';
 
 const AppRoutes = () => {
     return (
@@ -31,6 +32,7 @@ const AppRoutes = () => {
                         <Route path='/retrato-preto' element={<RetratoPretoView />} />
                         <Route path='/informacoes' element={<InformacoesView />} />
                         <Route path='/form-almagemela' element={<FormAlmaGemelaView />} />
+                        <Route path='/horoscopo' element={<HoroscopoView />} />
                     </Route>
 
                 </Routes>

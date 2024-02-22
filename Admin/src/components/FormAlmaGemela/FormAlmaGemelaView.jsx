@@ -172,7 +172,7 @@ const FormAlmaGemelaView = () => {
                 </Typography>
                 <TextField
                     fullWidth
-                    label="Nome"
+                    label="Nombre"
                     margin="normal"
                     value={nome}
                     onChange={(e) => setNome(e.target.value)}
@@ -180,7 +180,7 @@ const FormAlmaGemelaView = () => {
                 />
                 <TextField
                     fullWidth
-                    label="Data de Nascimento"
+                    label="Fecha de Nacimiento"
                     margin="normal"
                     type="date"
                     InputLabelProps={{ shrink: true }}
@@ -189,15 +189,15 @@ const FormAlmaGemelaView = () => {
                     required
                 />
                 <FormControl fullWidth margin="normal" required>
-                    <InputLabel>Interesse</InputLabel>
+                    <InputLabel>Interesado en</InputLabel>
                     <Select
                         value={interesse}
-                        label="Interesse"
+                        label="Interesado en"
                         onChange={(e) => setInteresse(e.target.value)}
                         required
                     >
-                        <MenuItem value="homem">Homem</MenuItem>
-                        <MenuItem value="mulher">Mulher</MenuItem>
+                        <MenuItem value="homem">Hombre</MenuItem>
+                        <MenuItem value="mulher">Mujer</MenuItem>
                     </Select>
                     {!interesse && <FormHelperText>Required</FormHelperText>}
                 </FormControl>
@@ -210,20 +210,31 @@ const FormAlmaGemelaView = () => {
                         required
                     >
                         <MenuItem value="masculino">Masculino</MenuItem>
-                        <MenuItem value="feminino">Feminino</MenuItem>
+                        <MenuItem value="feminino">Femenino</MenuItem>
                     </Select>
                     {!sexo && <FormHelperText>Required</FormHelperText>}
                 </FormControl>
                 <FormControl fullWidth margin="normal" required>
-                    <InputLabel>Signo</InputLabel>
+                    <InputLabel>Signo Zodiacal</InputLabel>
                     <Select
                         value={signo}
-                        label="Signo"
+                        label="Signo Zodiacal"
                         onChange={(e) => setSigno(e.target.value)}
                         required
                     >
                         {/* Adicione os signos aqui */}
-                        <MenuItem value="aries">Áries</MenuItem>
+                        <MenuItem value="aries">Aries</MenuItem>
+                        <MenuItem value="touro">Tauro</MenuItem>
+                        <MenuItem value="gemeos">Géminis</MenuItem>
+                        <MenuItem value="cancer">Cáncer</MenuItem>
+                        <MenuItem value="leao">Leo</MenuItem>
+                        <MenuItem value="virgem">Virgo</MenuItem>
+                        <MenuItem value="libra">Libra</MenuItem>
+                        <MenuItem value="escorpiao">Escorpio</MenuItem>
+                        <MenuItem value="sagitario">Sagitario</MenuItem>
+                        <MenuItem value="capricornio">Capricornio</MenuItem>
+                        <MenuItem value="aquario">Acuario</MenuItem>
+                        <MenuItem value="peixes">Piscis</MenuItem>
                         {/* Mais signos */}
                     </Select>
                     {!signo && <FormHelperText>Required</FormHelperText>}
@@ -236,7 +247,11 @@ const FormAlmaGemelaView = () => {
                         onChange={(e) => setEstadoCivil(e.target.value)}
                         required
                     >
-                        <MenuItem value="solteira">Solteira</MenuItem>
+                        <MenuItem value="solteira">Soltera</MenuItem>
+                        <MenuItem value="solteira">Casada</MenuItem>
+                        <MenuItem value="solteira">Divorciada</MenuItem>
+                        <MenuItem value="solteira">En una relación</MenuItem>
+                        <MenuItem value="solteira">Viuda</MenuItem>
                         {/* Mais estados civis */}
                     </Select>
                     {!estadoCivil && <FormHelperText>Required</FormHelperText>}

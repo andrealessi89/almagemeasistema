@@ -50,7 +50,7 @@ const InformacoesView = () => {
                     const { informacoes_alma, signo, informacoes } = response.data.userDetails;
 
                     if (signo === null || signo === '') {
-                        setErrorMessage("Você precisa preencher o formulário.");
+                        setErrorMessage(<div>Necesitas completar el formulario - <Link to="/form-almagemela">formulário</Link>.</div>);
                         return;
                     }
 
@@ -70,24 +70,24 @@ const InformacoesView = () => {
                 <img src={urlHoriochoi} alt="Descrição do Horiochi" height={150} />
                 <Grid item>
                   <Typography variant="body1" style={{ textAlign: 'center' }}>
-                    Você precisa comprar esse produto.
+                  Necesitas comprar este producto.
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography variant="h6" component="span" style={{ textDecoration: 'line-through', marginRight: '10px' }}>
-                    R$19,90
+                    $19,90
                   </Typography>
                   <Typography variant="h5" component="span" style={{ color: 'red' }}>
-                    R$9,90
+                    $9,90
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => window.location.href = 'https://www.exemplo.com/pagina-de-compra'}
+                    onClick={() => window.location.href = 'https://pay.hotmart.com/S89020222A?off=1ezrf7gk'}
                   >
-                    Comprar Informacoes
+                    Comprar Información
                   </Button>
                 </Grid>
               </Grid>
@@ -98,11 +98,11 @@ const InformacoesView = () => {
                     // Se o produto foi comprado
                     setInformacoesData(informacoes);
                 } else {
-                    throw new Error('Falha ao obter informações do usuário');
+                    throw new Error('Error al buscar información del usuario:');
                 }
             } catch (error) {
-                console.error('Erro ao buscar informações do usuário:', error);
-                setErrorMessage("Erro ao buscar informações do usuário.");
+                console.error('Error al buscar información del usuario:', error);
+                setErrorMessage("Error al buscar información del usuario.");
             } finally {
                 setLoading(false);
             }
