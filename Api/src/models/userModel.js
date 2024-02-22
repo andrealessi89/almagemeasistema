@@ -8,6 +8,7 @@ async function withConnection(database, callback) {
     try {
         return await callback(conn);
     } finally {
+        console.log('encerrado');
         conn.release();
     }
 }

@@ -9,7 +9,7 @@ const createConnectionPool = (database) => {
         database: database,
         port: process.env.MYSQL_PORT,
         waitForConnections: true,
-        connectionLimit: 10, // Ajuste conforme necessário
+        connectionLimit: 10000, // Ajuste conforme necessário
         queueLimit: 0
     });
 };
