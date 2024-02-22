@@ -110,7 +110,7 @@ const FormAlmaGemelaView = () => {
         try {
 
             const baseUrl = import.meta.env.VITE_API_URL;
-            const url = `${baseUrl}/get-random-image?interesse=${interesse}`;
+            const imageUrlResponse = `${baseUrl}/get-random-image?interesse=${interesse}`;
 
             console.log(interesse);
             const imageUrlData = await imageUrlResponse.json();
