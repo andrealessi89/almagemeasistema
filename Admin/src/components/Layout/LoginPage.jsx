@@ -53,7 +53,7 @@ export default function LoginPage() {
           const user = userResponse.data.user[0]; // Assumindo que sempre haverá pelo menos um usuário na resposta
           if (user.signo) {
             // Se o usuário tem um signo definido
-            navigate('/partida');
+            navigate('/retrato-preto');
           } else {
             // Se o signo do usuário é null
             navigate('/form-almagemela');
