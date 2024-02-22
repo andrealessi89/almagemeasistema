@@ -109,7 +109,9 @@ const FormAlmaGemelaView = () => {
 
         try {
 
-            const imageUrlResponse = await fetch(`http://localhost:3333/get-random-image?interesse=${interesse}`);
+            const baseUrl = import.meta.env.VITE_API_URL;
+            const url = `${baseUrl}/get-random-image?interesse=${interesse}`;
+
             console.log(interesse);
             const imageUrlData = await imageUrlResponse.json();
 
