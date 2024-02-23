@@ -13,11 +13,21 @@ async function withConnection(database, callback) {
 
 const saveUsuario = async ({ email, name, checkout_phone, senha, dataVenda }, database) => {
     return withConnection(database, async (conn) => {
-        const query = ' INSERT INTO usuarios (email, nome_completo, telefone, senha, dataVenda) VALUES (?, ?, ?, ?, ?)';
-        const [result] = await conn.execute(query, [email, name, checkout_phone, senha, dataVenda]);
+        // Verifica cada campo e substitui undefined por null
+        const verifiedEmail = email !== undefined ? email : null;
+        const verifiedName = name !== undefined ? name : null;
+        const verifiedPhone = checkout_phone !== undefined ? checkout_phone : null;
+        const verifiedSenha = senha !== undefined ? senha : null;
+        const verifiedDataVenda = dataVenda !== undefined ? dataVenda : null;
+
+        const query = 'INSERT INTO usuarios (email, nome_completo, telefone, senha, dataVenda) VALUES (?, ?, ?, ?, ?)';
+        // Passa os valores verificados para a consulta
+        const [result] = await conn.execute(query, [verifiedEmail, verifiedName, verifiedPhone, verifiedSenha, verifiedDataVenda]);
         return { id: result.insertId, success: true };
     });
 };
+
+
 
 
 const saveProdutoPrincipal = async ({ email, name, dataVenda }, database) => {

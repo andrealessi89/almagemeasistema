@@ -19,10 +19,18 @@ const VendaProdutoPrincipal = async (req, res, database) => {
             return res.status(400).json({ success: false, message: 'Nome do comprador é obrigatório.' });
         }
 
+
+        
         // Gera uma senha aleatória
         const senhaPlana = generateRandomPassword();
         const senha = await bcrypt.hash(senhaPlana, saltRounds);
         const dataVenda = moment().format('YYYY-MM-DD HH:mm:ss');
+
+        console.log(email);
+        console.log(name);
+        console.log(checkout_phone);
+        console.log(senha);
+        console.log(dataVenda);
 
 
         // Tenta salvar o usuário
