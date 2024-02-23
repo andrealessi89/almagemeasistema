@@ -22,13 +22,37 @@ const findUserByEmail = async (email, database) => {
 
 const editUserByEmail = async (email, data, database) => {
     return withConnection(database, async (conn) => {
-        const { nome, dataNascimento, interesse, sexo, signo, estadoCivil, url_img, informacoes } = data;
+        // Desestrutura os campos de data e verifica cada um para garantir que não são undefined
+        const {
+            nome,
+            dataNascimento,
+            interesse,
+            sexo,
+            signo,
+            estadoCivil,
+            url_img,
+            informacoes
+        } = data;
+
+        // Substitui undefined por null para cada campo
+        const params = [
+            nome ?? null,
+            dataNascimento ?? null,
+            interesse ?? null,
+            sexo ?? null,
+            signo ?? null,
+            estadoCivil ?? null,
+            url_img ?? null,
+            JSON.stringify(informacoes) ?? null, // Assegura que `informacoes` seja uma string JSON válida
+            email
+        ];
+
         const query = 'UPDATE usuarios SET nome = ?, data_nacimento = ?, interesse = ?, sexo = ?, signo = ?, estado_civil = ?, url_img = ?, informacoes = ? WHERE email = ?';
-        const params = [nome, dataNascimento, interesse, sexo, signo, estadoCivil, url_img, informacoes, email ];
         const [result] = await conn.execute(query, params);
         return result;
     });
 };
+
 
 const findVendaRetratoPretoByUserId = async (email, database) => {
     return withConnection(database, async (conn) => {
