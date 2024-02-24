@@ -54,7 +54,7 @@ const VendaProdutoPrincipal = async (req, res, database) => {
                         <p>O acceda al enlace https://painel.maestrohoriochi.com</p>
                         <br>
                         <p><strong>¡Atención exclusiva para usted!</strong></p>
-                        <p>Entendemos el profundo deseo de conectar con su alma gemela. Por eso, le presentamos una <strong>última oportunidad imperdible</strong> para acelerar este encuentro celestial.</p>
+                        <p>Entendemos el profundo deseo de conectar con su alma gemela. Por eso, le presentamos una <strong>ÚLTIMA OPORTUNIDAD imperdible</strong> para acelerar este encuentro celestial.</p>
                         <p><strong>El "Envio Inmediato"</strong> es su llave dorada para desbloquear el retrato de su alma gemela <strong>ahora mismo</strong>. Esta opción exclusiva está a punto de desvanecerse, y con ella, la oportunidad de acortar la espera.</p>
                         <p>Esta es su <strong>última chance</strong> para aprovechar este servicio especial. ¿Va a dejar pasar el momento de conocer a su alma gemela sin demoras?</p>
                         <p>No permita que el tiempo se interponga en su camino hacia el amor verdadero. <strong>Actúe ahora</strong> y asegure su "Envio Inmediato".</p>
