@@ -46,13 +46,25 @@ const VendaProdutoPrincipal = async (req, res, database) => {
                     to: email,
                     subject: 'El retrato de tu alma gemela está listo',
                     textContent: 'Seu cadastro foi realizado com sucesso.',
-                    htmlContent: '<p>Su acceso al sistema para ver el retrato de su alma gemela está justo abajo. Acceda al enlace con el usuario y contraseña:</p>' +
-                        `<p>Usuario: ${email}</p>` +
-                        `<p>contraseña: ${senhaPlana}</p>`+
-                        '<p><a href="https://painel.maestrohoriochi.com">Acceda al panel</a></p>'+
-                        '<p>o acceda al enlace https://painel.maestrohoriochi.com</p>'
-                    
+                    htmlContent: `
+                        <p>Su acceso al sistema para ver el retrato de su alma gemela está justo abajo. Acceda al enlace con el usuario y contraseña:</p>
+                        <p>Usuario: ${email}</p>
+                        <p>Contraseña: ${senhaPlana}</p>
+                        <p><a href="https://painel.maestrohoriochi.com">Acceda al panel</a></p>
+                        <p>O acceda al enlace https://painel.maestrohoriochi.com</p>
+                        <br>
+                        <p><strong>¡Atención exclusiva para usted!</strong></p>
+                        <p>Entendemos el profundo deseo de conectar con su alma gemela. Por eso, le presentamos una <strong>última oportunidad imperdible</strong> para acelerar este encuentro celestial.</p>
+                        <p><strong>El "Envio Inmediato"</strong> es su llave dorada para desbloquear el retrato de su alma gemela <strong>ahora mismo</strong>. Esta opción exclusiva está a punto de desvanecerse, y con ella, la oportunidad de acortar la espera.</p>
+                        <p>Esta es su <strong>última chance</strong> para aprovechar este servicio especial. ¿Va a dejar pasar el momento de conocer a su alma gemela sin demoras?</p>
+                        <p>No permita que el tiempo se interponga en su camino hacia el amor verdadero. <strong>Actúe ahora</strong> y asegure su "Envio Inmediato".</p>
+                        <p><a href="https://pay.hotmart.com/B89020319T?off=3l578vdu">¡Sí, quiero mi envío inmediato!</a></p>
+                        <p>Recuerde, esta es una <strong>oferta de tiempo limitado</strong>, diseñada exclusivamente para aquellos que, como usted, anhelan la unión más pura y profunda.</p>
+                        <p>Con amor y anticipación,</p>
+                        <p><strong>El Equipo de Maestro Horiochi</strong></p>
+                    `
                 };
+                
 
                 const emailResponse = await sendEmail(emailContent);
                 if (emailResponse.success) {
