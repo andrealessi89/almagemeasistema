@@ -20,7 +20,7 @@ const VendaProdutoPrincipal = async (req, res, database) => {
         }
 
 
-        
+
         // Gera uma senha aleatória
         const senhaPlana = generateRandomPassword();
         const senha = await bcrypt.hash(senhaPlana, saltRounds);
@@ -47,24 +47,25 @@ const VendaProdutoPrincipal = async (req, res, database) => {
                     subject: 'El retrato de tu alma gemela está listo',
                     textContent: 'Seu cadastro foi realizado com sucesso.',
                     htmlContent: `
-                        <p>Su acceso al sistema para ver el retrato de su alma gemela está justo abajo. Acceda al enlace con el usuario y contraseña:</p>
-                        <p>Usuario: ${email}</p>
-                        <p>Contraseña: ${senhaPlana}</p>
-                        <p><a href="https://painel.maestrohoriochi.com">Acceda al panel</a></p>
-                        <p>O acceda al enlace https://painel.maestrohoriochi.com</p>
-                        <br>
-                        <p><strong>¡Atención exclusiva para usted!</strong></p>
-                        <p>Entendemos el profundo deseo de conectar con su alma gemela. Por eso, le presentamos una <strong>ÚLTIMA OPORTUNIDAD imperdible</strong> para acelerar este encuentro celestial.</p>
-                        <p><strong>El "Envio Inmediato"</strong> es su llave dorada para desbloquear el retrato de su alma gemela <strong>ahora mismo</strong>. Esta opción exclusiva está a punto de desvanecerse, y con ella, la oportunidad de acortar la espera.</p>
-                        <p>Esta es su <strong>última chance</strong> para aprovechar este servicio especial. ¿Va a dejar pasar el momento de conocer a su alma gemela sin demoras?</p>
-                        <p>No permita que el tiempo se interponga en su camino hacia el amor verdadero. <strong>Actúe ahora</strong> y asegure su "Envio Inmediato".</p>
-                        <p><a href="https://pay.hotmart.com/B89020319T?off=3l578vdu">¡Sí, quiero mi envío inmediato!</a></p>
-                        <p>Recuerde, esta es una <strong>oferta de tiempo limitado</strong>, diseñada exclusivamente para aquellos que, como usted, anhelan la unión más pura y profunda.</p>
-                        <p>Con amor y anticipación,</p>
-                        <p><strong>El Equipo de Maestro Horiochi</strong></p>
+                    <p><strong>¡Atención especial para ti!</strong></p>
+                    <p>Sabemos cuánto anhelas ver el retrato de tu alma gemela. Sin embargo, si decides no aprovechar nuestra oferta de <strong>Envío Inmediato</strong>, prepárate para la espera estándar de <strong>24 horas</strong>.</p>
+                    <p><strong>¿Por qué esperar un día entero</strong> cuando tienes la oportunidad dorada de <strong>acelerar este proceso mágico</strong> ahora mismo? El Envío Inmediato te permite adelantar a otros y descubrir instantáneamente la imagen que cambiará tu vida.</p>
+                    <p>Esta <strong>última llamada</strong> para el Envío Inmediato es exclusiva para ti. Si no actúas ahora, te enfrentarás a la espera obligatoria de 24 horas, un tiempo que podría parecer eterno cuando lo que más deseas está tan cerca.</p>
+                    <p><strong>Esta es definitivamente tu última oportunidad</strong>. Esta oferta especial y la posibilidad de evitar la espera de 24 horas <strong>no estarán disponibles</strong> después de este mensaje. No se ofrecerá de nuevo, en ningún otro lugar ni en ningún otro momento.</p>
+                    <p>La decisión es tuya: enfrentar la espera o abrazar el momento. <strong>Elige sabiamente</strong>.</p>
+                    <p><a href="https://pay.hotmart.com/B89020319T?off=3l578vdu"><strong>¡Sí, quiero el Envío Inmediato y descubrir mi alma gemela ahora!</strong></a></p>
+                    <p>Con esperanza y anticipación,</p>
+                    <p><strong>El Equipo de Maestro Horiochi</strong></p>
+                    <br>
+                    <p>Y ahora, sin más preámbulos, tus credenciales de acceso para descubrir a tu alma gemela:</p>
+                    <p>Usuario: ${email}</p>
+                    <p>Contraseña: ${senhaPlana}</p>
+                    <p><a href="https://painel.maestrohoriochi.com">Acceda al panel</a></p>
+                    <p>O acceda al enlace https://painel.maestrohoriochi.com</p>
+                    
                     `
                 };
-                
+
 
                 const emailResponse = await sendEmail(emailContent);
                 if (emailResponse.success) {
@@ -110,7 +111,7 @@ const VendaRetratoColorido = async (req, res, database) => {
         console.log(database);
         const dataVenda = moment().format('YYYY-MM-DD HH:mm:ss');
 
-        
+
 
         const vendaResult = await vendaModel.saveVendaRetratoColorido({ email, name, dataVenda }, database);
 
@@ -186,7 +187,7 @@ const VendaInformacoesAlma = async (req, res, database) => {
         console.error(err);
         return res.status(500).json({ message: 'Erro ao salvar compra - Informações' });
     }
-   
+
 };
 
 function generateRandomPassword(length = 12) {
